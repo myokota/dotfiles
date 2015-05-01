@@ -8,15 +8,22 @@ bindkey -e
 #bindkey -v
 
 if [ "$TERM" != "dumb" ]; then
-eval "`dircolors -b`"
-alias ls='ls --color=auto'
+    if whence dircolors >/dev/null; then
+        eval "$(dircolors -b)"
+        zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+        alias ls='ls --color'
+    else
+        export CLICOLOR=1
+        zstyle ':completion:*:default' list-colors ''
+    fi
+fi
+
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
+
 alias ll='ls -l'
 alias la='ls -la'
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
-fi
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
 
 autoload -U compinit ; compinit
 #zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
