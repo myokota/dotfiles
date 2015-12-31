@@ -7,5 +7,5 @@ ln -fs $PWD/../vimrc ~/.vim_runtime
 cd $PWD/../vimrc
 git checkout myself
 cd -
-ln -fs $PWD/vimrc ~/.vim_runtime/my_configs.vim
+ln -fs $PWD/../vimrc ~/.vim_runtime
 ln -fs $PWD/vimrc ~/.vimrc
